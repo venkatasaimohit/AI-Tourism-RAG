@@ -5,6 +5,4 @@ app = FastAPI()
 
 @app.get("/")
 def home():
-    return {
-        "message": "Welcome to AI Tourism RAG Planner"
-    }
+    return {"message": "Welcome to AI Tourism RAG Planner"}
