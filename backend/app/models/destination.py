@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, ForeignKey
+from sqlalchemy import Column, String, Text
 
 from sqlalchemy.dialects.postgresql import UUID
 
@@ -7,10 +7,9 @@ import uuid
 from app.database.database import Base
 
 
+class Destination(Base):
 
-class Itinerary(Base):
-
-    __tablename__="itineraries"
+    __tablename__ = "destinations"
 
 
     id = Column(
@@ -20,12 +19,17 @@ class Itinerary(Base):
     )
 
 
-    trip_id = Column(
-        UUID(as_uuid=True),
-        ForeignKey("trips.id")
+    name = Column(
+        String,
+        nullable=False
     )
 
 
-    title = Column(
+    country = Column(
         String
+    )
+
+
+    description = Column(
+        Text
     )

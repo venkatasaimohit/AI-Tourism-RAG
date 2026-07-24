@@ -1,15 +1,42 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, String
+from sqlalchemy.dialects.postgresql import UUID
 
-from app.database.base import Base
+import uuid
 
-class User(Base):
+from app.database.database import Base
+from app.models.base_model import TimestampMixin
+
+
+
+class User(
+    Base,
+    TimestampMixin
+):
 
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True)
 
-    clerk_user_id = Column(String, unique=True)
+    id = Column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4
+    )
 
-    email = Column(String)
 
-    full_name = Column(String)
+    clerk_id = Column(
+        String,
+        unique=True,
+        nullable=False
+    )
+
+
+    email = Column(
+        String,
+        unique=True,
+        nullable=False
+    )
+
+
+    full_name = Column(
+        String
+    )

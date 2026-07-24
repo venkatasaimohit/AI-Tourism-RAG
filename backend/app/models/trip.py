@@ -1,15 +1,41 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, String, Integer, ForeignKey
 
-from app.database.base import Base
+from sqlalchemy.dialects.postgresql import UUID
+
+import uuid
+
+from app.database.database import Base
+
+
 
 class Trip(Base):
 
-    __tablename__ = "trips"
+    __tablename__="trips"
 
-    id = Column(Integer, primary_key=True)
 
-    destination = Column(String)
+    id = Column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4
+    )
 
-    budget = Column(Integer)
 
-    duration = Column(Integer)
+    user_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("users.id")
+    )
+
+
+    destination = Column(
+        String
+    )
+
+
+    duration = Column(
+        Integer
+    )
+
+
+    budget = Column(
+        Integer
+    )

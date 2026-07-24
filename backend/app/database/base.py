@@ -1,4 +1,7 @@
-from sqlalchemy.orm import DeclarativeBase
+from app.database.database import Base
 
-class Base(DeclarativeBase):
-    pass
+from app.models.user import User
+from app.models.trip import Trip
+from app.models.itinerary import Itinerary
+from app.models.destination import Destination
+from app.models.conversation import Conversation
