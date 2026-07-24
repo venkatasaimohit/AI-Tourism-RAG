@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-
+from app.api.v1.routes.trip import router as trip_router
 from app.api.v1.routes.health import router as health_router
 from app.api.v1.routes.auth import router as auth_router
 
@@ -14,4 +14,10 @@ api_router.include_router(
     auth_router,
     prefix="/auth",
     tags=["Authentication"]
+)
+
+api_router.include_router(
+    trip_router,
+    prefix="/trips",
+    tags=["Trips"]
 )
