@@ -1,21 +1,24 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-
-    APP_NAME: str
-    ENVIRONMENT: str
+    APP_NAME: str = "AI Tourism RAG"
+    ENVIRONMENT: str = "development"
 
     DATABASE_URL: str
 
-    OPENAI_API_KEY: str
+    OPENAI_API_KEY: str | None = None
 
-    QDRANT_URL: str
+    QDRANT_URL: str | None = None
 
-    CLERK_SECRET_KEY: str
+    CLERK_SECRET_KEY: str | None = None
+    CLERK_PUBLISHABLE_KEY: str | None = None
+    CLERK_JWT_ISSUER: str | None = None
 
-    class Config:
-        env_file = ".env"
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        extra="ignore",
+    )
 
 
 settings = Settings()
