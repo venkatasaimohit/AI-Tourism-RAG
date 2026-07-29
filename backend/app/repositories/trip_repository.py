@@ -1,27 +1,37 @@
 from sqlalchemy.orm import Session
+
 from app.models.trip import Trip
+from app.repositories.base_repository import BaseRepository
 
-class TripRepository:
 
-    def __init__(self, db: Session):
-        self.db = db
+class TripRepository(BaseRepository[Trip]):
 
-    def create(self, trip: Trip):
-        self.db.add(trip)
-        self.db.commit()
-        self.db.refresh(trip)
-        return trip
+    def __init__(
+        self,
+        db: Session,
+    ):
+        super().__init__(Trip, db)
 
-    def get_all(self):
-        return self.db.query(Trip).all()
-
-    def get_by_id(self, trip_id):
+    def get_by_user(
+        self,
+        user_id,
+    ):
         return (
             self.db.query(Trip)
-            .filter(Trip.id == trip_id)
-            .first()
+            .filter(Trip.user_id == user_id)
+            .all()
         )
 
-    def delete(self, trip):
-        self.db.delete(trip)
-        self.db.commit()
+    def search_destination(
+        self,
+        destination: str,
+    ):
+        return (
+            self.db.query(Trip)
+            .filter(
+                Trip.destination.ilike(
+                    f"%{destination}%"
+                )
+            )
+            .all()
+        )
